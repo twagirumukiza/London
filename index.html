@@ -650,9 +650,22 @@
 <footer class="footer">
   <div class="container">
     <p><strong>Londres quartier par quartier</strong> — carnet de découverte</p>
-    <p class="footer-note">Photos placeholder (Unsplash) — à remplacer par les tiennes</p>
+    <p class="footer-note">Photos personnelles — clique pour agrandir</p>
   </div>
 </footer>
+
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" hidden>
+  <button class="lb-close" aria-label="Fermer">&times;</button>
+  <button class="lb-prev" aria-label="Précédente">‹</button>
+  <button class="lb-next" aria-label="Suivante">›</button>
+  <div class="lb-content">
+    <img id="lb-img" src="" alt="">
+    <p id="lb-caption" class="lb-caption"></p>
+    <p id="lb-counter" class="lb-counter"></p>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>

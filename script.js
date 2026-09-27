@@ -133,34 +133,121 @@ if (localStorage.getItem('london-theme') === 'dark') {
 // Init
 applyTranslations('fr');
 
-// Full gallery - load all photos from known list
+
+// ========== LIGHTBOX + GALLERIES ==========
 (function() {
-  const grid = document.getElementById('full-gallery-grid');
-  if (!grid) return;
-  const photos = [
-    'westminster.jpg','big-ben.jpg','westminster-street.jpg','st-james-park.jpg','st-james-eye.jpg',
-    'soho.jpg','covent-garden.jpg','neals-yard.jpg','royal-opera-house.jpg',
-    'city.jpg','leadenhall.jpg','sky-garden.jpg','millennium-bridge.jpg',
-    'tower-bridge.jpg','tower-bridge-2.jpg','tower-bridge-3.jpg','tower-of-london.jpg','st-katharine-docks.jpg',
-    'borough.jpg','tate-modern.jpg',
-    'shoreditch.jpg','shoreditch-streetart.jpg','shoreditch-street.jpg','columbia-road.jpg',
-    'camden.jpg','little-venice.jpg','little-venice-2.jpg','little-venice-3.jpg',
-    'hampstead.jpg','notting-hill.jpg','notting-hill-portobello.jpg',
-    'kensington.jpg','chelsea.jpg','chelsea-harbour.jpg','chelsea-creek.jpg',
-    'marylebone.jpg','kings-cross.jpg','st-pancras.jpg',
-    'greenwich.jpg','brixton.jpg','hero-london.jpg'
-  ];
-  photos.forEach(p => {
-    const fig = document.createElement('figure');
-    const img = document.createElement('img');
-    img.src = 'photos/' + p;
-    img.alt = p.replace(/\.jpg$/,'').replace(/-/g,' ');
-    img.loading = 'lazy';
-    img.onerror = () => fig.remove();
-    const cap = document.createElement('figcaption');
-    cap.textContent = p.replace(/\.jpg$/,'').replace(/-/g,' ');
-    fig.appendChild(img);
-    fig.appendChild(cap);
-    grid.appendChild(fig);
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbCap = document.getElementById('lb-caption');
+  const lbCount = document.getElementById('lb-counter');
+  if (!lb) return;
+
+  let gallery = []; // current list of {src, alt}
+  let index = 0;
+
+  function openAt(i) {
+    if (!gallery.length) return;
+    index = (i + gallery.length) % gallery.length;
+    const item = gallery[index];
+    lbImg.src = item.src;
+    lbImg.alt = item.alt || '';
+    lbCap.textContent = item.alt || '';
+    lbCount.textContent = (index + 1) + ' / ' + gallery.length;
+    lb.hidden = false;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    setTimeout(() => { lb.hidden = true; }, 250);
+    document.body.style.overflow = '';
+  }
+
+  function collectFromContainer(container) {
+    // Include main quartier-img + gallery imgs in same story-card
+    const card = container.closest('.story-card') || container;
+    const imgs = card.querySelectorAll('.quartier-img img, .quartier-gallery img, .full-gallery-grid img');
+    return Array.from(imgs).map(img => ({
+      src: img.currentSrc || img.src,
+      alt: img.alt || img.getAttribute('alt') || ''
+    })).filter(x => x.src);
+  }
+
+  function onClick(e) {
+    const img = e.target.closest('img');
+    if (!img) return;
+    // Only handle images inside quartier cards or full gallery
+    const inCard = img.closest('.story-card');
+    const inFull = img.closest('.full-gallery-grid');
+    if (!inCard && !inFull) return;
+
+    e.preventDefault();
+    const container = inCard || inFull;
+    gallery = collectFromContainer(container);
+    if (!gallery.length) return;
+
+    const src = img.currentSrc || img.src;
+    let i = gallery.findIndex(g => g.src === src);
+    if (i < 0) i = 0;
+    openAt(i);
+  }
+
+  document.addEventListener('click', onClick);
+
+  lb.querySelector('.lb-close').addEventListener('click', close);
+  lb.querySelector('.lb-prev').addEventListener('click', () => openAt(index - 1));
+  lb.querySelector('.lb-next').addEventListener('click', () => openAt(index + 1));
+
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) close();
   });
+
+  document.addEventListener('keydown', (e) => {
+    if (lb.hidden || !lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') openAt(index - 1);
+    if (e.key === 'ArrowRight') openAt(index + 1);
+  });
+
+  // Swipe support mobile
+  let touchX = 0;
+  lb.addEventListener('touchstart', (e) => { touchX = e.changedTouches[0].screenX; }, {passive: true});
+  lb.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - touchX;
+    if (Math.abs(dx) < 50) return;
+    if (dx > 0) openAt(index - 1);
+    else openAt(index + 1);
+  }, {passive: true});
+
+  // Populate full gallery grid
+  const grid = document.getElementById('full-gallery-grid');
+  if (grid) {
+    const photos = [
+      'westminster.jpg','big-ben.jpg','westminster-street.jpg','st-james-park.jpg','st-james-eye.jpg',
+      'soho.jpg','covent-garden.jpg','neals-yard.jpg','royal-opera-house.jpg',
+      'city.jpg','leadenhall.jpg','sky-garden.jpg','millennium-bridge.jpg',
+      'tower-bridge.jpg','tower-bridge-2.jpg','tower-bridge-3.jpg','tower-of-london.jpg','st-katharine-docks.jpg',
+      'borough.jpg','tate-modern.jpg',
+      'shoreditch.jpg','shoreditch-streetart.jpg','shoreditch-street.jpg','columbia-road.jpg',
+      'camden.jpg','little-venice.jpg','little-venice-2.jpg','little-venice-3.jpg',
+      'hampstead.jpg','notting-hill.jpg','notting-hill-portobello.jpg',
+      'kensington.jpg','chelsea.jpg','chelsea-harbour.jpg','chelsea-creek.jpg',
+      'marylebone.jpg','kings-cross.jpg','st-pancras.jpg',
+      'greenwich.jpg','brixton.jpg','hero-london.jpg'
+    ];
+    photos.forEach(p => {
+      const fig = document.createElement('figure');
+      const img = document.createElement('img');
+      img.src = 'photos/' + p;
+      img.alt = p.replace(/\.jpg$/,'').replace(/-/g,' ');
+      img.loading = 'lazy';
+      img.onerror = () => fig.remove();
+      const cap = document.createElement('figcaption');
+      cap.textContent = img.alt;
+      fig.appendChild(img);
+      fig.appendChild(cap);
+      grid.appendChild(fig);
+    });
+  }
 })();
