@@ -304,3 +304,43 @@ applyTranslations('fr');
     });
   }
 })();
+
+// Desktop Quartiers dropdown
+(function() {
+  const dd = document.querySelector('.nav-dropdown');
+  if (!dd) return;
+  const btn = dd.querySelector('.nav-dropdown-btn');
+  const panel = dd.querySelector('.nav-dropdown-panel');
+
+  function close() {
+    dd.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+  function open() {
+    dd.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  function toggle(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (dd.classList.contains('open')) close();
+    else open();
+  }
+
+  btn.addEventListener('click', toggle);
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!dd.contains(e.target)) close();
+  });
+
+  // Close when choosing a quartier
+  panel.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => close());
+  });
+
+  // Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+})();
