@@ -288,23 +288,16 @@ body.theme-light .london-hero {
 .london-map {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
-  background: var(--dark-2);
+  background: #0a0a0a;
   border-radius: 12px;
-  border: 1px solid rgba(247, 201, 72, 0.2);
+  border: 1px solid rgba(247, 201, 72, 0.25);
   overflow: hidden;
 }
-.map-bg {
-  position: absolute;
-  inset: 0;
+.london-map .map-image {
+  display: block;
   width: 100%;
-  height: 100%;
-}
-:root, body:not(.theme-light) {
-  --map-bg: #1a222c;
-}
-body.theme-light {
-  --map-bg: #e8eef2;
+  height: auto;
+  vertical-align: top;
 }
 .map-pin {
   position: absolute;

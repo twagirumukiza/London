@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Londres quartier par quartier — carnet de découverte locale, après un an à Chelsea. Au-delà des incontournables.">
-  <title>Londres quartier par quartier — twagirumukiza</title>
+  <title>LONDON — CITY OF POSSIBILITIES — twagirumukiza</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
@@ -85,7 +85,7 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-subtitle" data-i18n="hero.subtitle">CARNET DE DÉCOUVERTE · LONDRES</p>
-    <h1 data-i18n="hero.title">Londres<br>quartier par quartier</h1>
+    <h1 data-i18n="hero.title">LONDON — CITY OF POSSIBILITIES</h1>
     <p class="hero-desc" data-i18n="hero.desc">Après un an à Chelsea, une exploration locale plutôt qu’une liste d’incontournables. Chaque quartier a sa propre identité.</p>
     <a href="#quartiers" class="hero-cta" data-i18n="hero.cta">Explorer les quartiers</a>
   </div>
@@ -100,34 +100,28 @@
 
     <div class="london-map-wrap">
       <div class="london-map" id="london-map">
-        <!-- Simplified London map background -->
-        <svg class="map-bg" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="800" height="600" fill="var(--map-bg)"/>
-          <!-- Thames simplified curve -->
-          <path d="M 80 320 Q 200 300 320 340 Q 450 390 580 360 Q 700 330 780 350" fill="none" stroke="#4a90a4" stroke-width="18" stroke-linecap="round" opacity="0.5"/>
-          <path d="M 80 320 Q 200 300 320 340 Q 450 390 580 360 Q 700 330 780 350" fill="none" stroke="#6bb3c7" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
-        </svg>
+        <img src="photos/london-boroughs-map.png" alt="Carte des boroughs de Londres" class="map-image" width="700" height="541">
 
-        <!-- Clickable pins: left%, top% approximate central London layout -->
-        <a href="#westminster" class="map-pin" style="left:42%;top:48%" data-label="Westminster" title="Westminster"><span></span><em>Westminster</em></a>
-        <a href="#soho" class="map-pin" style="left:44%;top:42%" data-label="Soho" title="Soho"><span></span><em>Soho</em></a>
-        <a href="#covent-garden" class="map-pin" style="left:47%;top:43%" data-label="Covent Garden" title="Covent Garden"><span></span><em>Covent Garden</em></a>
-        <a href="#city" class="map-pin" style="left:54%;top:45%" data-label="City" title="City of London"><span></span><em>City</em></a>
-        <a href="#tower" class="map-pin" style="left:58%;top:50%" data-label="Tower" title="Tower Bridge"><span></span><em>Tower</em></a>
-        <a href="#southwark" class="map-pin" style="left:53%;top:54%" data-label="Southwark" title="Southwark / Borough"><span></span><em>Borough</em></a>
-        <a href="#shoreditch" class="map-pin" style="left:58%;top:38%" data-label="Shoreditch" title="Shoreditch"><span></span><em>Shoreditch</em></a>
-        <a href="#camden" class="map-pin" style="left:45%;top:30%" data-label="Camden" title="Camden"><span></span><em>Camden</em></a>
-        <a href="#hampstead" class="map-pin" style="left:43%;top:18%" data-label="Hampstead" title="Hampstead"><span></span><em>Hampstead</em></a>
-        <a href="#notting-hill" class="map-pin" style="left:32%;top:42%" data-label="Notting Hill" title="Notting Hill"><span></span><em>Notting Hill</em></a>
-        <a href="#kensington" class="map-pin" style="left:35%;top:48%" data-label="Kensington" title="Kensington"><span></span><em>Kensington</em></a>
-        <a href="#chelsea" class="map-pin" style="left:38%;top:55%" data-label="Chelsea" title="Chelsea"><span></span><em>Chelsea</em></a>
-        <a href="#chelsea-harbour" class="map-pin" style="left:34%;top:60%" data-label="Chelsea Harbour" title="Chelsea Harbour"><span></span><em>Harbour</em></a>
-        <a href="#marylebone" class="map-pin" style="left:42%;top:36%" data-label="Marylebone" title="Marylebone"><span></span><em>Marylebone</em></a>
-        <a href="#kings-cross" class="map-pin" style="left:48%;top:32%" data-label="King's Cross" title="King's Cross"><span></span><em>King's Cross</em></a>
-        <a href="#greenwich" class="map-pin" style="left:68%;top:58%" data-label="Greenwich" title="Greenwich"><span></span><em>Greenwich</em></a>
-        <a href="#brixton" class="map-pin" style="left:50%;top:68%" data-label="Brixton" title="Brixton"><span></span><em>Brixton</em></a>
-        <a href="#little-venice" class="map-pin" style="left:36%;top:35%" data-label="Little Venice" title="Little Venice"><span></span><em>Little Venice</em></a>
-        <a href="#bromley" class="map-pin" style="left:72%;top:78%" data-label="Bromley" title="Bromley"><span></span><em>Bromley</em></a>
+        <!-- Pins positioned on the real borough map -->
+        <a href="#westminster" class="map-pin" style="left:42%;top:48%" title="Westminster"><span></span><em>Westminster</em></a>
+        <a href="#soho" class="map-pin" style="left:43%;top:44%" title="Soho"><span></span><em>Soho</em></a>
+        <a href="#covent-garden" class="map-pin" style="left:45%;top:45%" title="Covent Garden"><span></span><em>Covent Garden</em></a>
+        <a href="#city" class="map-pin" style="left:48%;top:46%" title="City of London"><span></span><em>City</em></a>
+        <a href="#tower" class="map-pin" style="left:51%;top:49%" title="Tower Bridge"><span></span><em>Tower</em></a>
+        <a href="#southwark" class="map-pin" style="left:49%;top:52%" title="Southwark / Borough"><span></span><em>Borough</em></a>
+        <a href="#shoreditch" class="map-pin" style="left:52%;top:40%" title="Shoreditch"><span></span><em>Shoreditch</em></a>
+        <a href="#camden" class="map-pin" style="left:44%;top:38%" title="Camden"><span></span><em>Camden</em></a>
+        <a href="#hampstead" class="map-pin" style="left:43%;top:28%" title="Hampstead"><span></span><em>Hampstead</em></a>
+        <a href="#notting-hill" class="map-pin" style="left:36%;top:45%" title="Notting Hill"><span></span><em>Notting Hill</em></a>
+        <a href="#kensington" class="map-pin" style="left:38%;top:49%" title="Kensington"><span></span><em>Kensington</em></a>
+        <a href="#chelsea" class="map-pin" style="left:40%;top:53%" title="Chelsea"><span></span><em>Chelsea</em></a>
+        <a href="#chelsea-harbour" class="map-pin" style="left:37%;top:56%" title="Chelsea Harbour"><span></span><em>Harbour</em></a>
+        <a href="#marylebone" class="map-pin" style="left:41%;top:41%" title="Marylebone"><span></span><em>Marylebone</em></a>
+        <a href="#kings-cross" class="map-pin" style="left:46%;top:36%" title="King's Cross"><span></span><em>King's Cross</em></a>
+        <a href="#greenwich" class="map-pin" style="left:60%;top:54%" title="Greenwich"><span></span><em>Greenwich</em></a>
+        <a href="#brixton" class="map-pin" style="left:47%;top:62%" title="Brixton"><span></span><em>Brixton</em></a>
+        <a href="#little-venice" class="map-pin" style="left:38%;top:40%" title="Little Venice"><span></span><em>Little Venice</em></a>
+        <a href="#bromley" class="map-pin" style="left:68%;top:72%" title="Bromley"><span></span><em>Bromley</em></a>
       </div>
       <p class="map-hint" data-i18n="map.hint">Clique un point jaune pour aller au récit du quartier.</p>
     </div>
