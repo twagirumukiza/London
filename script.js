@@ -132,3 +132,35 @@ if (localStorage.getItem('london-theme') === 'dark') {
 
 // Init
 applyTranslations('fr');
+
+// Full gallery - load all photos from known list
+(function() {
+  const grid = document.getElementById('full-gallery-grid');
+  if (!grid) return;
+  const photos = [
+    'westminster.jpg','big-ben.jpg','westminster-street.jpg','st-james-park.jpg','st-james-eye.jpg',
+    'soho.jpg','covent-garden.jpg','neals-yard.jpg','royal-opera-house.jpg',
+    'city.jpg','leadenhall.jpg','sky-garden.jpg','millennium-bridge.jpg',
+    'tower-bridge.jpg','tower-bridge-2.jpg','tower-bridge-3.jpg','tower-of-london.jpg','st-katharine-docks.jpg',
+    'borough.jpg','tate-modern.jpg',
+    'shoreditch.jpg','shoreditch-streetart.jpg','shoreditch-street.jpg','columbia-road.jpg',
+    'camden.jpg','little-venice.jpg','little-venice-2.jpg','little-venice-3.jpg',
+    'hampstead.jpg','notting-hill.jpg','notting-hill-portobello.jpg',
+    'kensington.jpg','chelsea.jpg','chelsea-harbour.jpg','chelsea-creek.jpg',
+    'marylebone.jpg','kings-cross.jpg','st-pancras.jpg',
+    'greenwich.jpg','brixton.jpg','hero-london.jpg'
+  ];
+  photos.forEach(p => {
+    const fig = document.createElement('figure');
+    const img = document.createElement('img');
+    img.src = 'photos/' + p;
+    img.alt = p.replace(/\.jpg$/,'').replace(/-/g,' ');
+    img.loading = 'lazy';
+    img.onerror = () => fig.remove();
+    const cap = document.createElement('figcaption');
+    cap.textContent = p.replace(/\.jpg$/,'').replace(/-/g,' ');
+    fig.appendChild(img);
+    fig.appendChild(cap);
+    grid.appendChild(fig);
+  });
+})();

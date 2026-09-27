@@ -6,7 +6,7 @@
   background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 40%, #16213e 100%);
   background-image:
     linear-gradient(rgba(13,13,13,0.55), rgba(13,13,13,0.75)),
-    url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80');
+    url('photos/hero-london.jpg');
   background-size: cover;
   background-position: center;
   min-height: 85vh;
@@ -15,7 +15,7 @@
 body.theme-light .london-hero {
   background-image:
     linear-gradient(rgba(245,245,240,0.45), rgba(245,245,240,0.7)),
-    url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1600&q=80');
+    url('photos/hero-london.jpg');
 }
 
 .intro-section {
@@ -129,4 +129,51 @@ body.theme-light .london-hero {
   .london-hero {
     min-height: 70vh;
   }
+}
+
+/* ========== GALLERY GRIDS ========== */
+.quartier-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+.quartier-gallery img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.quartier-gallery img:hover {
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+
+.full-gallery {
+  padding: 4rem 0;
+  background: var(--dark);
+}
+.full-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.6rem;
+}
+.full-gallery-grid figure {
+  margin: 0;
+  position: relative;
+}
+.full-gallery-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+.full-gallery-grid figcaption {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  text-align: center;
 }
