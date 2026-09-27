@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Londres quartier par quartier — carnet de découverte locale, après un an à Chelsea. Au-delà des incontournables.">
+  <title>Londres quartier par quartier — twagirumukiza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="london.css">
+</head>
+<body class="theme-light">
+
+<header class="header">
+  <div class="header-inner">
+    <a href="#home" class="logo">
+      <span class="logo-icon">◆</span>
+      <span class="logo-text">LONDON</span>
+    </a>
+    <nav class="nav-desktop">
+      <a href="#home" data-i18n="nav.home">Accueil</a>
+      <a href="#quartiers" data-i18n="nav.quartiers">Quartiers</a>
+      <a href="#about" data-i18n="nav.about">À propos</a>
+    </nav>
+    <div class="header-controls">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="fr">FR</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+      <div class="font-controls">
+        <button id="font-minus" title="Diminuer">A−</button>
+        <button id="font-plus" title="Augmenter">A+</button>
+      </div>
+      <button id="theme-toggle" class="theme-btn" title="Thème"><span class="theme-icon">☀</span></button>
+      <button id="burger" class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div id="mobile-menu" class="mobile-menu">
+  <div class="mobile-menu-inner">
+    <a href="#home" data-i18n="nav.home">Accueil</a>
+    <a href="#quartiers" data-i18n="nav.quartiers">Quartiers</a>
+    <div class="menu-stages">
+      <p data-i18n="nav.stages">Les quartiers</p>
+      <a href="#westminster">Westminster</a>
+      <a href="#soho">Soho & Chinatown</a>
+      <a href="#covent-garden">Covent Garden</a>
+      <a href="#city">City of London</a>
+      <a href="#tower">Tower Hill</a>
+      <a href="#southwark">Southwark / Borough</a>
+      <a href="#shoreditch">Shoreditch / Brick Lane</a>
+      <a href="#camden">Camden</a>
+      <a href="#hampstead">Hampstead</a>
+      <a href="#notting-hill">Notting Hill</a>
+      <a href="#kensington">Kensington</a>
+      <a href="#chelsea">Chelsea</a>
+      <a href="#chelsea-harbour">Chelsea Harbour & Creek</a>
+      <a href="#marylebone">Marylebone</a>
+      <a href="#kings-cross">King’s Cross / St Pancras</a>
+      <a href="#greenwich">Greenwich</a>
+      <a href="#brixton">Brixton</a>
+      <a href="#little-venice">Little Venice</a>
+      <a href="#bromley">Bromley</a>
+    </div>
+    <a href="#about" data-i18n="nav.about">À propos</a>
+    <div class="menu-stages menu-elsewhere">
+      <p data-i18n="mobile.elsewhere">Ailleurs</p>
+      <a href="https://twagirumukiza.github.io/Mexico/" target="_blank" rel="noopener">Mexico</a>
+      <a href="https://twagirumukiza.github.io/PRAGUE/" target="_blank" rel="noopener">Prague</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="home" class="hero london-hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-subtitle" data-i18n="hero.subtitle">CARNET DE DÉCOUVERTE · LONDRES</p>
+    <h1 data-i18n="hero.title">Londres<br>quartier par quartier</h1>
+    <p class="hero-desc" data-i18n="hero.desc">Après un an à Chelsea, une exploration locale plutôt qu’une liste d’incontournables. Chaque quartier a sa propre identité.</p>
+    <a href="#quartiers" class="hero-cta" data-i18n="hero.cta">Explorer les quartiers</a>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="container">
+    <h2 class="section-title" data-i18n="intro.title">L’idée</h2>
+    <p class="intro-text" data-i18n="intro.text">
+      Tu as déjà vécu à Chelsea. Je ne te fais donc pas une simple liste des « incontournables de Londres ». 
+      On part plutôt sur une découverte quartier par quartier, en distinguant ce que tu connais probablement déjà 
+      de ce qui permet de retrouver un Londres plus local. Londres se prête particulièrement bien à cette approche : 
+      chaque quartier a une identité assez forte.
+    </p>
+    <p class="intro-highlight" data-i18n="intro.highlight">
+      Si tu veux vraiment retrouver le Londres que tu as connu plutôt que faire un voyage de touriste, 
+      privilégie Shoreditch, Hampstead, Greenwich, Brixton, Southwark/Borough et les petites rues de Notting Hill 
+      avant certains grands monuments.
+    </p>
+  </div>
+</section>
+
+<!-- QUARTIERS -->
+<section id="quartiers" class="stories-section">
+  <div class="container">
+    <h2 class="section-title" data-i18n="quartiers.title">Les quartiers</h2>
+    <p class="section-desc" data-i18n="quartiers.desc">Dix-neuf parcours pour (re)découvrir la ville autrement.</p>
+
+    <!-- 1. Westminster -->
+    <article id="westminster" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">01</span>
+        <h3>🏛️ Westminster — le Londres impérial et politique</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1529655683826-aba9b3b64878?w=900&q=80" alt="Big Ben et Westminster" loading="lazy">
+        </div>
+        <h4 data-i18n="a.faire">À faire</h4>
+        <ul>
+          <li>Big Ben</li>
+          <li>Palais de Westminster</li>
+          <li>Abbaye de Westminster</li>
+          <li>Whitehall</li>
+          <li>Downing Street</li>
+          <li>St James’s Park</li>
+          <li>Buckingham Palace</li>
+          <li>The Mall</li>
+          <li>Victoria Embankment</li>
+        </ul>
+        <p class="walk-tip">👉 <strong data-i18n="belle.promenade">Belle promenade</strong> : Westminster → St James’s Park → Buckingham Palace → Green Park → Piccadilly.</p>
+      </div>
+    </article>
+
+    <!-- 2. Soho -->
+    <article id="soho" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">02</span>
+        <h3>🎭 Soho & Chinatown — le Londres vivant</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=80" alt="Soho Londres" loading="lazy">
+        </div>
+        <h4 data-i18n="a.faire">À faire</h4>
+        <ul>
+          <li>Soho Square</li>
+          <li>Carnaby Street</li>
+          <li>Berwick Street</li>
+          <li>Chinatown / Gerrard Street</li>
+          <li>Denmark Street</li>
+          <li>Piccadilly Circus</li>
+          <li>Ronnie Scott’s</li>
+          <li>Seven Noses of Soho</li>
+          <li>Outernet</li>
+        </ul>
+        <p class="note" data-i18n="soho.note">Soho est particulièrement intéressant le soir : restaurants, théâtres, musique et vie nocturne se concentrent dans un espace relativement compact.</p>
+      </div>
+    </article>
+
+    <!-- 3. Covent Garden -->
+    <article id="covent-garden" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">03</span>
+        <h3>🏛️ Covent Garden — Londres historique et touristique</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1486299267070-83823fcee8cf?w=900&q=80" alt="Covent Garden" loading="lazy">
+        </div>
+        <ul>
+          <li>Covent Garden Market</li>
+          <li>Neal’s Yard</li>
+          <li>Seven Dials</li>
+          <li>Royal Opera House</li>
+          <li>St Martin-in-the-Fields</li>
+          <li>Somerset House</li>
+          <li>Strand</li>
+          <li>Cecil Court</li>
+        </ul>
+        <p class="walk-tip">👉 Fais Covent Garden → Seven Dials → Neal’s Yard → Soho à pied.</p>
+      </div>
+    </article>
+
+    <!-- 4. City -->
+    <article id="city" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">04</span>
+        <h3>🏦 City of London — le Londres des affaires</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=80" alt="City of London skyline" loading="lazy">
+        </div>
+        <p class="note" data-i18n="city.note">C’est un Londres complètement différent de Chelsea.</p>
+        <ul>
+          <li>St Paul’s Cathedral</li>
+          <li>Leadenhall Market</li>
+          <li>Royal Exchange</li>
+          <li>Bank</li>
+          <li>Monument</li>
+          <li>Sky Garden</li>
+          <li>Lloyd’s Building</li>
+          <li>30 St Mary Axe — « The Gherkin »</li>
+          <li>Barbican</li>
+        </ul>
+        <p class="walk-tip">👉 Très intéressant en semaine, quand le quartier vit réellement.</p>
+      </div>
+    </article>
+
+    <!-- 5. Tower -->
+    <article id="tower" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">05</span>
+        <h3>🏰 Tower Hill / Tower Bridge</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=80" alt="Tower Bridge" loading="lazy">
+        </div>
+        <ul>
+          <li>Tower of London</li>
+          <li>Tower Bridge</li>
+          <li>St Katharine Docks</li>
+          <li>Trinity Square</li>
+          <li>Promenade le long de la Tamise</li>
+        </ul>
+        <p class="walk-tip">Puis continue à pied vers London Bridge et Borough.</p>
+      </div>
+    </article>
+
+    <!-- 6. Southwark -->
+    <article id="southwark" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">06</span>
+        <h3>🍺 Southwark / Borough — Londres populaire et gastronomique</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80" alt="Borough Market" loading="lazy">
+        </div>
+        <ul>
+          <li>Borough Market</li>
+          <li>Southwark Cathedral</li>
+          <li>Tate Modern</li>
+          <li>Shakespeare’s Globe</li>
+          <li>Millennium Bridge</li>
+          <li>The Anchor</li>
+          <li>Bankside</li>
+          <li>Southwark Street</li>
+        </ul>
+        <p class="walk-tip">👉 Une excellente journée : Tower Bridge → Borough Market → Tate Modern → Millennium Bridge → St Paul’s.</p>
+      </div>
+    </article>
+
+    <!-- 7. Shoreditch -->
+    <article id="shoreditch" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">07</span>
+        <h3>🎨 Shoreditch / Brick Lane — le Londres alternatif</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&q=80" alt="Street art Shoreditch" loading="lazy">
+        </div>
+        <ul>
+          <li>Brick Lane</li>
+          <li>Spitalfields Market</li>
+          <li>Street art</li>
+          <li>Redchurch Street</li>
+          <li>Boxpark Shoreditch</li>
+          <li>Old Spitalfields Market</li>
+          <li>Columbia Road Flower Market</li>
+          <li>Hoxton</li>
+        </ul>
+        <p class="note" data-i18n="shoreditch.note">C’est probablement l’un des quartiers à privilégier si tu veux voir un Londres très différent du Chelsea résidentiel. Scène créative et marchés.</p>
+      </div>
+    </article>
+
+    <!-- 8. Camden -->
+    <article id="camden" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">08</span>
+        <h3>🎸 Camden — Londres rock, punk et alternatif</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=80" alt="Camden Market" loading="lazy">
+        </div>
+        <ul>
+          <li>Camden Market</li>
+          <li>Camden Lock</li>
+          <li>Regent’s Canal</li>
+          <li>Electric Ballroom</li>
+          <li>Roundhouse</li>
+          <li>Primrose Hill</li>
+          <li>Regent’s Park</li>
+        </ul>
+        <p class="walk-tip">👉 Je ferais Camden → Regent’s Canal → Primrose Hill plutôt que de rester uniquement dans le marché.</p>
+      </div>
+    </article>
+
+    <!-- 9. Hampstead -->
+    <article id="hampstead" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">09</span>
+        <h3>🌳 Hampstead — le Londres villageois</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=900&q=80" alt="Hampstead Heath" loading="lazy">
+        </div>
+        <ul>
+          <li>Hampstead Village</li>
+          <li>Hampstead Heath</li>
+          <li>Parliament Hill</li>
+          <li>Kenwood House</li>
+          <li>Flask Walk</li>
+          <li>Holly Bush</li>
+          <li>Highgate Cemetery (à proximité)</li>
+        </ul>
+        <p class="note" data-i18n="hampstead.note">Excellent choix pour sortir du Londres touristique. Grands espaces verts et vues sur la ville.</p>
+      </div>
+    </article>
+
+    <!-- 10. Notting Hill -->
+    <article id="notting-hill" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">10</span>
+        <h3>🌈 Notting Hill — mais pas seulement Portobello</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1529655683826-aba9b3b64878?w=900&q=80" alt="Notting Hill houses" loading="lazy">
+        </div>
+        <ul>
+          <li>Portobello Road & Market</li>
+          <li>Golborne Road</li>
+          <li>Westbourne Grove</li>
+          <li>Lancaster Road</li>
+          <li>St Luke’s Mews</li>
+          <li>Les maisons colorées</li>
+          <li>Holland Park</li>
+          <li>Kyoto Garden</li>
+        </ul>
+        <p class="note" data-i18n="notting.note">Notting Hill mérite vraiment une balade dans les petites rues plutôt qu’une simple visite de Portobello.</p>
+      </div>
+    </article>
+
+    <!-- 11. Kensington -->
+    <article id="kensington" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">11</span>
+        <h3>🌸 Kensington — ton ancien territoire, à revisiter autrement</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1486299267070-83823fcee8cf?w=900&q=80" alt="Kensington Gardens" loading="lazy">
+        </div>
+        <p class="note" data-i18n="kensington.note">Puisque tu as vécu à Chelsea, je ne mets pas Chelsea au centre. En revanche, une journée Kensington que tu n’aurais peut-être pas vécue comme touriste :</p>
+        <ul>
+          <li>Kensington Gardens</li>
+          <li>Kensington Palace</li>
+          <li>Albert Memorial</li>
+          <li>Royal Albert Hall</li>
+          <li>Natural History Museum</li>
+          <li>V&A</li>
+          <li>Science Museum</li>
+          <li>Exhibition Road</li>
+          <li>Holland Park</li>
+        </ul>
+        <p class="walk-tip">Et surtout : Kensington → Holland Park → Notting Hill, à pied.</p>
+      </div>
+    </article>
+
+    <!-- 12. Chelsea -->
+    <article id="chelsea" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">12</span>
+        <h3>👑 Chelsea — version « retour aux sources »</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=80" alt="King's Road Chelsea" loading="lazy">
+        </div>
+        <p class="note" data-i18n="chelsea.note">Puisque tu y as vécu, je transforme la visite en balade personnelle :</p>
+        <ul>
+          <li>King’s Road</li>
+          <li>Duke of York Square</li>
+          <li>Chelsea Physic Garden</li>
+          <li>Chelsea Old Church</li>
+          <li>Cheyne Walk</li>
+          <li>Albert Bridge</li>
+          <li>Battersea Park</li>
+          <li>Battersea Power Station</li>
+        </ul>
+        <p class="walk-tip">👉 Chelsea → Cheyne Walk → Albert Bridge → Battersea Park → Battersea Power Station est probablement beaucoup plus intéressant pour toi qu’une simple liste de monuments.</p>
+      </div>
+    </article>
+
+    <!-- 13. Chelsea Harbour & Creek -->
+    <article id="chelsea-harbour" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">13</span>
+        <h3>⚓ Chelsea Harbour & Chelsea Creek</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=80" alt="Chelsea Harbour marina" loading="lazy">
+        </div>
+        <p class="note" data-i18n="harbour.note">Prolongement naturel de Chelsea, côté rivière et marina. Un Londres plus confidentiel, entre design et front de mer.</p>
+        <ul>
+          <li>Chelsea Harbour Marina</li>
+          <li>Chelsea Harbour Design Centre</li>
+          <li>Chelsea Harbour Hotel / Wyndham Grand</li>
+          <li>Chelsea Creek (développement contemporain)</li>
+          <li>Promenade le long de Chelsea Creek</li>
+          <li>Imperial Wharf (à proximité)</li>
+          <li>Lots Road</li>
+        </ul>
+        <p class="walk-tip">👉 Idéal en fin d’après-midi : marina → Design Centre → balade vers Imperial Wharf ou retour vers Cheyne Walk.</p>
+      </div>
+    </article>
+
+    <!-- 14. Marylebone -->
+    <article id="marylebone" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">14</span>
+        <h3>🏘️ Marylebone — le Londres élégant et discret</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1486299267070-83823fcee8cf?w=900&q=80" alt="Marylebone High Street" loading="lazy">
+        </div>
+        <ul>
+          <li>Marylebone High Street</li>
+          <li>Daunt Books</li>
+          <li>Chiltern Street</li>
+          <li>Baker Street</li>
+          <li>Sherlock Holmes Museum</li>
+          <li>Regent’s Park</li>
+          <li>Queen Mary’s Gardens</li>
+        </ul>
+        <p class="walk-tip">👉 Très agréable pour une demi-journée tranquille.</p>
+      </div>
+    </article>
+
+    <!-- 15. King's Cross -->
+    <article id="kings-cross" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">15</span>
+        <h3>🚂 King’s Cross / St Pancras — Londres moderne</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1529655683826-aba9b3b64878?w=900&q=80" alt="St Pancras station" loading="lazy">
+        </div>
+        <ul>
+          <li>St Pancras</li>
+          <li>King’s Cross</li>
+          <li>Granary Square</li>
+          <li>Coal Drops Yard</li>
+          <li>Regent’s Canal</li>
+          <li>British Library</li>
+        </ul>
+        <p class="note" data-i18n="kingscross.note">Le quartier a énormément changé et vaut la peine d’être revu si tu connais Londres depuis longtemps.</p>
+      </div>
+    </article>
+
+    <!-- 16. Greenwich -->
+    <article id="greenwich" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">16</span>
+        <h3>🌍 Greenwich — une vraie excursion</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=900&q=80" alt="Greenwich Park view" loading="lazy">
+        </div>
+        <ul>
+          <li>Greenwich Market</li>
+          <li>Cutty Sark</li>
+          <li>Old Royal Naval College</li>
+          <li>Greenwich Park</li>
+          <li>Royal Observatory</li>
+          <li>Vue depuis la colline</li>
+          <li>National Maritime Museum</li>
+        </ul>
+        <p class="note" data-i18n="greenwich.note">Greenwich donne presque l’impression de quitter Londres alors qu’on est toujours dans la ville. Patrimoine maritime et Observatoire royal.</p>
+      </div>
+    </article>
+
+    <!-- 17. Brixton -->
+    <article id="brixton" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">17</span>
+        <h3>🌍 Brixton — un autre visage de Londres</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=900&q=80" alt="Brixton street art" loading="lazy">
+        </div>
+        <ul>
+          <li>Brixton Market</li>
+          <li>Brixton Village</li>
+          <li>Electric Avenue</li>
+          <li>Street art</li>
+          <li>David Bowie mural</li>
+          <li>Windrush Square</li>
+        </ul>
+        <p class="note" data-i18n="brixton.note">Très intéressant pour comprendre le Londres multiculturel contemporain.</p>
+      </div>
+    </article>
+
+    <!-- 18. Little Venice -->
+    <article id="little-venice" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">18</span>
+        <h3>🏙️ Little Venice / Paddington — balade au bord de l’eau</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=900&q=80" alt="Little Venice canal" loading="lazy">
+        </div>
+        <ul>
+          <li>Little Venice</li>
+          <li>Regent’s Canal</li>
+          <li>Maida Vale</li>
+          <li>Paddington Basin</li>
+          <li>Balade jusqu’à Camden (si motivé)</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 19. Bromley -->
+    <article id="bromley" class="story-card quartier-card">
+      <div class="story-header">
+        <span class="story-date">19</span>
+        <h3>🏡 Bromley — un peu en banlieue</h3>
+      </div>
+      <div class="story-body">
+        <div class="quartier-img">
+          <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=900&q=80" alt="Bromley green spaces" loading="lazy">
+        </div>
+        <p class="note" data-i18n="bromley.note">La plus grande superficie d’espaces verts de Londres. Un vrai changement de rythme, à 20–30 minutes du centre.</p>
+        <ul>
+          <li>Church House Gardens</li>
+          <li>Down House (maison de Charles Darwin, à Downe)</li>
+          <li>Chislehurst Caves</li>
+          <li>Crystal Palace Park (et ses dinosaures)</li>
+          <li>Biggin Hill (aérodrome historique)</li>
+          <li>High Elms Country Park</li>
+          <li>Jubilee Country Park</li>
+          <li>Churchill Theatre</li>
+        </ul>
+        <p class="walk-tip">👉 Idéal pour une journée hors du centre : nature, histoire et un Londres beaucoup plus « village ».</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="about-section">
+  <div class="container">
+    <h2 class="section-title" data-i18n="about.title">À propos</h2>
+    <p class="about-text" data-i18n="about.text">
+      Ce carnet n’est pas un guide touristique classique. Il part du fait que tu as déjà vécu un an à Chelsea 
+      et cherche à te faire (re)découvrir Londres à travers ses quartiers, du plus officiel au plus local.
+    </p>
+    <p class="signature">— twagirumukiza</p>
+    <div class="prague-cta" style="margin-top:2rem;">
+      <p class="prague-cta-text">Autres carnets de voyage</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+        <a href="https://twagirumukiza.github.io/Mexico/" class="prague-btn" target="_blank" rel="noopener">
+          <span class="prague-btn-icon">◆</span>
+          <span class="prague-btn-label">MEXICO</span>
+        </a>
+        <a href="https://twagirumukiza.github.io/PRAGUE/" class="prague-btn" target="_blank" rel="noopener">
+          <span class="prague-btn-icon">◆</span>
+          <span class="prague-btn-label">PRAGUE</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>Londres quartier par quartier</strong> — carnet de découverte</p>
+    <p class="footer-note">Photos placeholder (Unsplash) — à remplacer par les tiennes</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
