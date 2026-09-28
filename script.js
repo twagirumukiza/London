@@ -214,6 +214,12 @@ applyTranslations('fr');
     lbImg.alt = item.alt || '';
     lbCap.textContent = item.alt || '';
     lbCount.textContent = (index + 1) + ' / ' + gallery.length;
+    const nav = gallery.length > 1;
+    const prev = lb.querySelector('.lb-prev');
+    const next = lb.querySelector('.lb-next');
+    if (prev) prev.style.display = nav ? '' : 'none';
+    if (next) next.style.display = nav ? '' : 'none';
+    if (!nav) lbCount.textContent = '';
     lb.hidden = false;
     lb.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -225,27 +231,41 @@ applyTranslations('fr');
     document.body.style.overflow = '';
   }
 
-  function collectFromContainer(container) {
-    // Include main quartier-img + gallery imgs in same story-card
+  function collectPhotos(container) {
+    // Photos only — maps excluded from carousel
     const card = container.closest('.story-card') || container;
-    const imgs = card.querySelectorAll('.quartier-img img, .quartier-gallery img, .soho-gallery img, .quartier-loc-map img, .tab-img, .full-gallery-grid img');
+    const imgs = card.querySelectorAll('.quartier-img img, .quartier-gallery img, .soho-gallery img, .tab-img, .full-gallery-grid img');
     return Array.from(imgs).map(img => ({
       src: img.currentSrc || img.src,
       alt: img.alt || img.getAttribute('alt') || ''
     })).filter(x => x.src);
   }
 
+  function isMapImage(img) {
+    return !!(img.closest('.quartier-loc-map') || img.classList.contains('walk-map-img') || img.classList.contains('quartier-loc-map-img'));
+  }
+
   function onClick(e) {
     const img = e.target.closest('img');
     if (!img) return;
-    // Only handle images inside quartier cards or full gallery
     const inCard = img.closest('.story-card');
     const inFull = img.closest('.full-gallery-grid');
     if (!inCard && !inFull) return;
 
     e.preventDefault();
+
+    // Maps: enlarge alone, not part of photo carousel
+    if (isMapImage(img)) {
+      gallery = [{
+        src: img.currentSrc || img.src,
+        alt: img.alt || img.getAttribute('alt') || ''
+      }];
+      openAt(0);
+      return;
+    }
+
     const container = inCard || inFull;
-    gallery = collectFromContainer(container);
+    gallery = collectPhotos(container);
     if (!gallery.length) return;
 
     const src = img.currentSrc || img.src;
