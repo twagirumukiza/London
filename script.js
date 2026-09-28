@@ -4,6 +4,7 @@
 
 const translations = {
   fr: {
+    "search.placeholder": "Rechercher un quartier…",
     "nav.home": "Accueil",
     "nav.map": "Carte",
     "nav.quartiers": "Quartiers",
@@ -43,6 +44,7 @@ const translations = {
     "about.text": "Ce carnet n’est pas un guide touristique classique. Il part du fait que tu as déjà vécu un an à Chelsea et cherche à te faire (re)découvrir Londres à travers ses quartiers, du plus officiel au plus local."
   },
   en: {
+    "search.placeholder": "Search a neighbourhood…",
     "nav.home": "Home",
     "nav.map": "Map",
     "nav.quartiers": "Neighbourhoods",
@@ -82,6 +84,7 @@ const translations = {
     "about.text": "This notebook is not a classic tourist guide. It starts from the fact that you already lived a year in Chelsea and aims to help you (re)discover London through its neighbourhoods, from the most official to the most local."
   },
   es: {
+    "search.placeholder": "Buscar un barrio…",
     "nav.home": "Inicio",
     "nav.map": "Mapa",
     "nav.quartiers": "Barrios",
@@ -127,6 +130,10 @@ let fontSize = 16;
 
 function applyTranslations(lang) {
   currentLang = lang;
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key]) el.setAttribute('placeholder', t[key]);
+  });
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[lang] && translations[lang][key]) {
@@ -342,5 +349,100 @@ applyTranslations('fr');
   // Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') close();
+  });
+})();
+
+// ========== SITE SEARCH ==========
+(function() {
+  const input = document.getElementById('site-search');
+  const results = document.getElementById('search-results');
+  if (!input || !results) return;
+
+  const quartiers = [
+    { id: 'westminster', name: 'Westminster', desc: 'Le Londres impérial et politique' },
+    { id: 'soho', name: 'Soho & Chinatown', desc: 'Le Londres vivant' },
+    { id: 'covent-garden', name: 'Covent Garden', desc: 'Historique et touristique' },
+    { id: 'city', name: 'City of London', desc: 'Le Londres des affaires' },
+    { id: 'tower', name: 'Tower Hill / Tower Bridge', desc: 'Tower Bridge' },
+    { id: 'southwark', name: 'Southwark / Borough', desc: 'Populaire et gastronomique' },
+    { id: 'shoreditch', name: 'Shoreditch / Brick Lane', desc: 'Alternatif' },
+    { id: 'camden', name: 'Camden', desc: 'Rock, punk et marchés' },
+    { id: 'hampstead', name: 'Hampstead', desc: 'Le Londres villageois' },
+    { id: 'notting-hill', name: 'Notting Hill', desc: 'Au-delà de Portobello' },
+    { id: 'kensington', name: 'Kensington', desc: 'À revisiter autrement' },
+    { id: 'chelsea', name: 'Chelsea', desc: 'Retour aux sources' },
+    { id: 'chelsea-harbour', name: 'Chelsea Harbour & Creek', desc: 'Marina' },
+    { id: 'marylebone', name: 'Marylebone', desc: 'Élégant et discret' },
+    { id: 'kings-cross', name: "King's Cross / St Pancras", desc: 'Londres moderne' },
+    { id: 'greenwich', name: 'Greenwich', desc: 'Une vraie excursion' },
+    { id: 'brixton', name: 'Brixton', desc: 'Multiculturel' },
+    { id: 'little-venice', name: 'Little Venice / Paddington', desc: 'Balade au bord de l’eau' },
+    { id: 'bromley', name: 'Bromley', desc: 'Un peu en banlieue' },
+  ];
+
+  let activeIdx = -1;
+
+  function render(q) {
+    const term = q.trim().toLowerCase();
+    if (!term) {
+      results.hidden = true;
+      results.innerHTML = '';
+      return;
+    }
+    const matches = quartiers.filter(x =>
+      x.name.toLowerCase().includes(term) ||
+      x.desc.toLowerCase().includes(term) ||
+      x.id.replace(/-/g, ' ').includes(term)
+    );
+    if (!matches.length) {
+      results.innerHTML = '<div class="search-empty">Aucun quartier trouvé</div>';
+      results.hidden = false;
+      activeIdx = -1;
+      return;
+    }
+    results.innerHTML = matches.map((m, i) =>
+      `<a href="#${m.id}" role="option" data-idx="${i}"><strong>${m.name}</strong> — ${m.desc}</a>`
+    ).join('');
+    results.hidden = false;
+    activeIdx = -1;
+
+    results.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        results.hidden = true;
+        input.value = '';
+      });
+    });
+  }
+
+  input.addEventListener('input', () => render(input.value));
+  input.addEventListener('focus', () => { if (input.value.trim()) render(input.value); });
+
+  input.addEventListener('keydown', (e) => {
+    const items = results.querySelectorAll('a');
+    if (results.hidden || !items.length) {
+      if (e.key === 'Escape') { input.blur(); }
+      return;
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      activeIdx = Math.min(activeIdx + 1, items.length - 1);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      activeIdx = Math.max(activeIdx - 1, 0);
+      items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
+    } else if (e.key === 'Enter' && activeIdx >= 0) {
+      e.preventDefault();
+      items[activeIdx].click();
+    } else if (e.key === 'Escape') {
+      results.hidden = true;
+      input.blur();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrap')) {
+      results.hidden = true;
+    }
   });
 })();

@@ -638,3 +638,91 @@ body.theme-light .quartier-loc-label {
     max-width: 480px;
   }
 }
+
+/* ========== SEARCH BAR ========== */
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.site-search {
+  width: 160px;
+  max-width: 22vw;
+  padding: 0.4rem 0.75rem 0.4rem 2rem;
+  border: 1.5px solid rgba(247, 201, 72, 0.35);
+  border-radius: 20px;
+  background: var(--dark-2, rgba(0,0,0,0.06)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23a08a40' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3-3'/%3E%3C/svg%3E") no-repeat 0.65rem center;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.8rem;
+  outline: none;
+  transition: width 0.25s, border-color 0.2s, background-color 0.2s;
+}
+.site-search::placeholder {
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+.site-search:focus {
+  width: 220px;
+  max-width: 40vw;
+  border-color: var(--yellow);
+  background-color: var(--black);
+}
+body.theme-light .site-search {
+  background-color: #fff;
+  border-color: rgba(180, 150, 40, 0.35);
+}
+body.theme-light .site-search:focus {
+  background-color: #fff;
+  border-color: var(--yellow);
+}
+.search-results {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  left: auto;
+  min-width: 260px;
+  max-width: 320px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--black);
+  border: 1px solid rgba(247, 201, 72, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+  z-index: 300;
+  padding: 0.4rem 0;
+}
+body.theme-light .search-results {
+  background: #fffef9;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+}
+.search-results a {
+  display: block;
+  padding: 0.55rem 1rem;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.15s;
+}
+.search-results a:hover,
+.search-results a.active {
+  background: rgba(247, 201, 72, 0.15);
+  color: var(--yellow);
+}
+.search-results a strong {
+  font-weight: 600;
+}
+.search-results .search-empty {
+  padding: 0.75rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+@media (max-width: 700px) {
+  .site-search {
+    width: 120px;
+    font-size: 0.75rem;
+  }
+  .site-search:focus {
+    width: 150px;
+  }
+}
