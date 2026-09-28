@@ -130,6 +130,7 @@ let fontSize = 16;
 
 function applyTranslations(lang) {
   currentLang = lang;
+  const t = translations[lang] || {};
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
     if (t[key]) el.setAttribute('placeholder', t[key]);

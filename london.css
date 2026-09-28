@@ -677,6 +677,7 @@ body.theme-light .site-search:focus {
   border-color: var(--yellow);
 }
 .search-results {
+  z-index: 2000;
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
@@ -693,6 +694,7 @@ body.theme-light .site-search:focus {
   padding: 0.4rem 0;
 }
 body.theme-light .search-results {
+  z-index: 2000;
   background: #fffef9;
   box-shadow: 0 12px 36px rgba(0,0,0,0.12);
 }
