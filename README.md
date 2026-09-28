@@ -1,6 +1,6 @@
 # Londres quartier par quartier
 
-Carnet de découverte de Londres, quartier par quartier — pour quelqu’un qui a déjà vécu un an à Chelsea.
+Carnet de découverte de Londres, quartier par quartier — par quelqu’un qui a vécu un an à Chelsea.
 
 ## Design
 
