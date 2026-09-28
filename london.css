@@ -856,3 +856,36 @@ body.theme-light .search-snippet mark {
   margin-bottom: 0.75rem;
   color: var(--yellow);
 }
+
+/* Soho dual maps */
+.soho-maps-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 1rem;
+  margin: 1.25rem 0 1.5rem;
+  align-items: stretch;
+}
+.soho-maps-row .quartier-loc-map {
+  max-width: none;
+  margin: 0;
+  height: 100%;
+}
+.soho-maps-row .quartier-loc-map-img {
+  height: 100%;
+  object-fit: cover;
+  min-height: 220px;
+}
+.soho-walk-map .walk-map-img {
+  object-fit: contain;
+  background: #f7f4ec;
+  cursor: pointer;
+  filter: none !important;
+}
+.soho-walk-map {
+  cursor: pointer;
+}
+@media (max-width: 700px) {
+  .soho-maps-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -228,7 +228,7 @@ applyTranslations('fr');
   function collectFromContainer(container) {
     // Include main quartier-img + gallery imgs in same story-card
     const card = container.closest('.story-card') || container;
-    const imgs = card.querySelectorAll('.quartier-img img, .quartier-gallery img, .full-gallery-grid img');
+    const imgs = card.querySelectorAll('.quartier-img img, .quartier-gallery img, .soho-gallery img, .quartier-loc-map img, .tab-img, .full-gallery-grid img');
     return Array.from(imgs).map(img => ({
       src: img.currentSrc || img.src,
       alt: img.alt || img.getAttribute('alt') || ''
