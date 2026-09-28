@@ -889,3 +889,98 @@ body.theme-light .search-snippet mark {
     grid-template-columns: 1fr;
   }
 }
+
+/* ========== MOBILE HEADER FIX ========== */
+@media (max-width: 900px) {
+  .header {
+    padding-top: env(safe-area-inset-top, 0);
+  }
+  .header-inner {
+    padding: 0.65rem 0.85rem;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+  .logo-text {
+    font-size: 0.95rem;
+  }
+  .logo-icon {
+    font-size: 1.1rem;
+  }
+  /* Hide A+/A- on phone — still in less critical tools */
+  .font-controls {
+    display: none;
+  }
+  .header-controls {
+    gap: 0.35rem;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .lang-switcher {
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    padding: 0.25rem 0.45rem;
+    font-size: 0.7rem;
+  }
+  .theme-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+  }
+  .burger {
+    display: flex;
+    flex-shrink: 0;
+    margin-left: 0.15rem;
+  }
+  /* Compact search — expands on focus */
+  .search-wrap {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .site-search {
+    width: 2.4rem;
+    max-width: 2.4rem;
+    padding: 0.4rem;
+    padding-left: 2rem;
+    font-size: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    background-position: center;
+  }
+  .site-search::placeholder {
+    color: transparent;
+  }
+  .site-search:focus {
+    width: min(52vw, 180px);
+    max-width: min(52vw, 180px);
+    font-size: 0.8rem;
+    border-radius: 20px;
+    padding: 0.4rem 0.75rem 0.4rem 2rem;
+    background-position: 0.65rem center;
+  }
+  .site-search:focus::placeholder {
+    color: var(--text-muted);
+    opacity: 0.8;
+  }
+  .search-results {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 3.4rem);
+    left: 0.75rem;
+    right: 0.75rem;
+    min-width: 0;
+    max-width: none;
+    width: auto;
+    max-height: 55vh;
+  }
+}
+
+@media (max-width: 380px) {
+  .logo-text {
+    /* keep diamond + LONDON if possible */
+    font-size: 0.85rem;
+  }
+  .lang-btn {
+    padding: 0.2rem 0.35rem;
+  }
+}
