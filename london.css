@@ -984,3 +984,10 @@ body.theme-light .search-snippet mark {
     padding: 0.2rem 0.35rem;
   }
 }
+
+.soho-afaire {
+  margin: 1.5rem 0 0.75rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  color: var(--text);
+}
