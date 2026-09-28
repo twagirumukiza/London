@@ -4,7 +4,7 @@
 
 const translations = {
   fr: {
-    "search.placeholder": "Rechercher un quartier…",
+    "search.placeholder": "Rechercher…",
     "nav.home": "Accueil",
     "nav.map": "Carte",
     "nav.quartiers": "Quartiers",
@@ -44,7 +44,7 @@ const translations = {
     "about.text": "Ce carnet n’est pas un guide touristique classique. Il part du fait que tu as déjà vécu un an à Chelsea et cherche à te faire (re)découvrir Londres à travers ses quartiers, du plus officiel au plus local."
   },
   en: {
-    "search.placeholder": "Search a neighbourhood…",
+    "search.placeholder": "Search…",
     "nav.home": "Home",
     "nav.map": "Map",
     "nav.quartiers": "Neighbourhoods",
@@ -84,7 +84,7 @@ const translations = {
     "about.text": "This notebook is not a classic tourist guide. It starts from the fact that you already lived a year in Chelsea and aims to help you (re)discover London through its neighbourhoods, from the most official to the most local."
   },
   es: {
-    "search.placeholder": "Buscar un barrio…",
+    "search.placeholder": "Buscar…",
     "nav.home": "Inicio",
     "nav.map": "Mapa",
     "nav.quartiers": "Barrios",
@@ -353,88 +353,147 @@ applyTranslations('fr');
   });
 })();
 
-// ========== SITE SEARCH ==========
+// ========== SITE SEARCH (full-text) ==========
 (function() {
   const input = document.getElementById('site-search');
   const results = document.getElementById('search-results');
   if (!input || !results) return;
 
-  const quartiers = [
-    { id: 'westminster', name: 'Westminster', desc: 'Le Londres impérial et politique' },
-    { id: 'soho', name: 'Soho & Chinatown', desc: 'Le Londres vivant' },
-    { id: 'covent-garden', name: 'Covent Garden', desc: 'Historique et touristique' },
-    { id: 'city', name: 'City of London', desc: 'Le Londres des affaires' },
-    { id: 'tower', name: 'Tower Hill / Tower Bridge', desc: 'Tower Bridge' },
-    { id: 'southwark', name: 'Southwark / Borough', desc: 'Populaire et gastronomique' },
-    { id: 'shoreditch', name: 'Shoreditch / Brick Lane', desc: 'Alternatif' },
-    { id: 'camden', name: 'Camden', desc: 'Rock, punk et marchés' },
-    { id: 'hampstead', name: 'Hampstead', desc: 'Le Londres villageois' },
-    { id: 'notting-hill', name: 'Notting Hill', desc: 'Au-delà de Portobello' },
-    { id: 'kensington', name: 'Kensington', desc: 'À revisiter autrement' },
-    { id: 'chelsea', name: 'Chelsea', desc: 'Retour aux sources' },
-    { id: 'chelsea-harbour', name: 'Chelsea Harbour & Creek', desc: 'Marina' },
-    { id: 'marylebone', name: 'Marylebone', desc: 'Élégant et discret' },
-    { id: 'kings-cross', name: "King's Cross / St Pancras", desc: 'Londres moderne' },
-    { id: 'greenwich', name: 'Greenwich', desc: 'Une vraie excursion' },
-    { id: 'brixton', name: 'Brixton', desc: 'Multiculturel' },
-    { id: 'little-venice', name: 'Little Venice / Paddington', desc: 'Balade au bord de l’eau' },
-    { id: 'bromley', name: 'Bromley', desc: 'Un peu en banlieue' },
-  ];
+  // Build searchable index from page content
+  function buildIndex() {
+    const index = [];
+    const sections = document.querySelectorAll('article.story-card, section[id], .intro-prose, .about-section');
+    sections.forEach((sec, i) => {
+      const id = sec.id || sec.closest('[id]')?.id || ('sec-' + i);
+      const titleEl = sec.querySelector('h2, h3, .section-title');
+      const title = titleEl ? titleEl.textContent.trim() : id;
+      // Collect text from headings, paragraphs, lists, notes
+      const parts = [];
+      sec.querySelectorAll('h2, h3, h4, p, li, .note, .etape-desc').forEach(el => {
+        const t = el.textContent.replace(/\s+/g, ' ').trim();
+        if (t.length > 1) parts.push(t);
+      });
+      const body = parts.join(' ').replace(/\s+/g, ' ').trim();
+      if (body.length < 3 && !title) return;
+      index.push({ id, title, body, bodyLower: (title + ' ' + body).toLowerCase() });
+    });
+    // Also index individual list items as optional hits inside cards
+    document.querySelectorAll('article.story-card').forEach(card => {
+      const cardId = card.id;
+      const cardTitle = card.querySelector('h3')?.textContent.trim() || cardId;
+      card.querySelectorAll('li').forEach(li => {
+        const t = li.textContent.replace(/\s+/g, ' ').trim();
+        if (t.length < 2) return;
+        index.push({
+          id: cardId,
+          title: cardTitle,
+          body: t,
+          bodyLower: (cardTitle + ' ' + t).toLowerCase(),
+          snippetOnly: true
+        });
+      });
+    });
+    return index;
+  }
 
+  let index = null;
   let activeIdx = -1;
 
+  function ensureIndex() {
+    if (!index) index = buildIndex();
+  }
+
+  function snippet(text, term, maxLen) {
+    maxLen = maxLen || 90;
+    const lower = text.toLowerCase();
+    const pos = lower.indexOf(term);
+    if (pos === -1) {
+      return text.length > maxLen ? text.slice(0, maxLen) + '…' : text;
+    }
+    const start = Math.max(0, pos - 30);
+    const end = Math.min(text.length, pos + term.length + 50);
+    let s = text.slice(start, end);
+    if (start > 0) s = '…' + s;
+    if (end < text.length) s = s + '…';
+    // highlight
+    const re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig');
+    return s.replace(re, '<mark>$1</mark>');
+  }
+
   function render(q) {
+    ensureIndex();
     const term = q.trim().toLowerCase();
-    if (!term) {
+    if (term.length < 2) {
       results.hidden = true;
       results.innerHTML = '';
       return;
     }
-    const matches = quartiers.filter(x =>
-      x.name.toLowerCase().includes(term) ||
-      x.desc.toLowerCase().includes(term) ||
-      x.id.replace(/-/g, ' ').includes(term)
-    );
+
+    const seen = new Set();
+    const matches = [];
+    for (const item of index) {
+      if (!item.bodyLower.includes(term)) continue;
+      // Prefer one result per section id (best: non-snippet or first)
+      const key = item.id + '|' + (item.snippetOnly ? item.body.slice(0, 40) : 'main');
+      if (seen.has(item.id) && !item.snippetOnly) continue;
+      if (seen.has(key)) continue;
+      // Limit to 1 main + a few snippets per section
+      const countForId = matches.filter(m => m.id === item.id).length;
+      if (countForId >= 3) continue;
+      if (!item.snippetOnly) seen.add(item.id);
+      seen.add(key);
+      matches.push(item);
+      if (matches.length >= 12) break;
+    }
+
     if (!matches.length) {
-      results.innerHTML = '<div class="search-empty">Aucun quartier trouvé</div>';
+      results.innerHTML = '<div class="search-empty">Aucun résultat</div>';
       results.hidden = false;
       activeIdx = -1;
       return;
     }
-    results.innerHTML = matches.map((m, i) =>
-      `<a href="#${m.id}" role="option" data-idx="${i}"><strong>${m.name}</strong> — ${m.desc}</a>`
-    ).join('');
+
+    results.innerHTML = matches.map((m, i) => {
+      const snip = snippet(m.body, term);
+      return '<a href="#' + m.id + '" role="option" data-idx="' + i + '">' +
+        '<strong>' + m.title + '</strong>' +
+        '<span class="search-snippet">' + snip + '</span></a>';
+    }).join('');
     results.hidden = false;
     activeIdx = -1;
 
     results.querySelectorAll('a').forEach(a => {
       a.addEventListener('click', () => {
         results.hidden = true;
-        input.value = '';
+        // keep query so user sees context; optional clear:
+        // input.value = '';
       });
     });
   }
 
   input.addEventListener('input', () => render(input.value));
-  input.addEventListener('focus', () => { if (input.value.trim()) render(input.value); });
+  input.addEventListener('focus', () => { if (input.value.trim().length >= 2) render(input.value); });
 
   input.addEventListener('keydown', (e) => {
     const items = results.querySelectorAll('a');
     if (results.hidden || !items.length) {
-      if (e.key === 'Escape') { input.blur(); }
+      if (e.key === 'Escape') { input.blur(); results.hidden = true; }
       return;
     }
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       activeIdx = Math.min(activeIdx + 1, items.length - 1);
       items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
+      items[activeIdx]?.scrollIntoView({ block: 'nearest' });
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       activeIdx = Math.max(activeIdx - 1, 0);
       items.forEach((el, i) => el.classList.toggle('active', i === activeIdx));
-    } else if (e.key === 'Enter' && activeIdx >= 0) {
+      items[activeIdx]?.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter') {
       e.preventDefault();
-      items[activeIdx].click();
+      if (activeIdx >= 0) items[activeIdx].click();
+      else if (items[0]) items[0].click();
     } else if (e.key === 'Escape') {
       results.hidden = true;
       input.blur();
@@ -442,8 +501,11 @@ applyTranslations('fr');
   });
 
   document.addEventListener('click', (e) => {
-    if (!e.target.closest('.search-wrap')) {
-      results.hidden = true;
-    }
+    if (!e.target.closest('.search-wrap')) results.hidden = true;
+  });
+
+  // Rebuild index after language change (text content changes)
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => { index = null; });
   });
 })();

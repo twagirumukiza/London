@@ -728,3 +728,24 @@ body.theme-light .search-results {
     width: 150px;
   }
 }
+
+.search-results a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  line-height: 1.35;
+}
+.search-snippet {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.search-snippet mark {
+  background: rgba(247, 201, 72, 0.45);
+  color: inherit;
+  padding: 0 0.15em;
+  border-radius: 2px;
+}
+body.theme-light .search-snippet mark {
+  background: rgba(247, 201, 72, 0.55);
+}
