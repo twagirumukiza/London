@@ -246,8 +246,9 @@ function applyTranslations(lang) {
       el.innerHTML = translations[lang][key];
     }
   });
-  // Long narrative blocks: show only the active language
+  // Long narrative blocks: show only the active language (not lang switcher buttons)
   document.querySelectorAll('[data-lang]').forEach(el => {
+    if (el.classList.contains('lang-btn')) return;
     el.hidden = el.getAttribute('data-lang') !== lang;
   });
   document.querySelectorAll('.lang-btn').forEach(btn => {
