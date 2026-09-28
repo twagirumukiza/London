@@ -509,3 +509,26 @@ applyTranslations('fr');
     btn.addEventListener('click', () => { index = null; });
   });
 })();
+
+// ========== CONTENT TABS ==========
+(function() {
+  document.querySelectorAll('.content-tabs').forEach(wrap => {
+    const buttons = wrap.querySelectorAll('.tab-btn');
+    const panels = wrap.querySelectorAll('.tab-panel');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.tab;
+        buttons.forEach(b => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+        });
+        panels.forEach(p => {
+          const on = p.dataset.panel === id;
+          p.classList.toggle('active', on);
+          if (on) p.removeAttribute('hidden');
+          else p.setAttribute('hidden', '');
+        });
+      });
+    });
+  });
+})();
