@@ -996,3 +996,28 @@ body.theme-light .search-snippet mark {
   font-size: 1.25rem;
   color: var(--text);
 }
+
+
+/* Blitz short section */
+.blitz-section {
+  padding: 3rem 0 3.5rem;
+  border-top: 1px solid var(--border, rgba(0,0,0,0.08));
+}
+.blitz-section .section-header {
+  margin-bottom: 1.25rem;
+}
+.blitz-body {
+  max-width: 720px;
+  line-height: 1.65;
+  color: var(--text);
+}
+.blitz-body p {
+  margin: 0 0 1rem;
+}
+.blitz-links {
+  margin: 1.25rem 0 0;
+  padding-left: 1.15rem;
+}
+.blitz-links li {
+  margin-bottom: 0.5rem;
+}
