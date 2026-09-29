@@ -1,6 +1,6 @@
 /* Galerie photo — généré par generateur.html */
 window.PHOTO_GALLERY_CONFIG = {
-  "base": "https://twagirumukiza.github.io/London/#westminster/",
+  "base": "https://twagirumukiza.github.io/London/",
   "photos": "photos",
   "thumbs": "photos/thumbs",
   "formats": "jpg,jpeg,png",
