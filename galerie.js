@@ -12,7 +12,7 @@ window.PHOTO_GALLERY_CONFIG = {
     "rolf_aderhold-people-3237136.jpg"
   ],
   "meta": {},
-  "accent": "#fff2d5"
+  "accent": "#fefcdd"
 };
 /*! photo-gallery — galerie slider embarquable (aucune dépendance)
  *  <photo-gallery></photo-gallery>
