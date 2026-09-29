@@ -270,6 +270,7 @@ function applyTranslations(lang) {
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
   document.documentElement.lang = lang;
+  if (typeof window.rebuildAllTabNav === "function") window.rebuildAllTabNav();
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -657,23 +658,88 @@ applyTranslations('fr');
 
 // ========== CONTENT TABS ==========
 (function() {
-  document.querySelectorAll('.content-tabs').forEach(wrap => {
-    const buttons = wrap.querySelectorAll('.tab-btn');
-    const panels = wrap.querySelectorAll('.tab-panel');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.tab;
-        buttons.forEach(b => {
-          b.classList.toggle('active', b === btn);
-          b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
-        });
-        panels.forEach(p => {
-          const on = p.dataset.panel === id;
-          p.classList.toggle('active', on);
-          if (on) p.removeAttribute('hidden');
-          else p.setAttribute('hidden', '');
+  const navLabels = {
+    fr: { prev: "Précédent", next: "Suivant" },
+    en: { prev: "Previous", next: "Next" },
+    es: { prev: "Anterior", next: "Siguiente" }
+  };
+
+  function getNavLabels() {
+    const lang = (typeof currentLang !== "undefined" && currentLang) || document.documentElement.lang || "fr";
+    return navLabels[lang] || navLabels.fr;
+  }
+
+  function activateTab(wrap, id) {
+    const buttons = wrap.querySelectorAll(".tab-btn");
+    const panels = wrap.querySelectorAll(".tab-panel");
+    buttons.forEach(b => {
+      const on = b.dataset.tab === id;
+      b.classList.toggle("active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    panels.forEach(p => {
+      const on = p.dataset.panel === id;
+      p.classList.toggle("active", on);
+      if (on) p.removeAttribute("hidden");
+      else p.setAttribute("hidden", "");
+    });
+    // scroll tab button into view on mobile
+    const activeBtn = wrap.querySelector(`.tab-btn[data-tab="${id}"]`);
+    if (activeBtn) activeBtn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+  }
+
+  function buildTabNav(wrap) {
+    const buttons = Array.from(wrap.querySelectorAll(".tab-btn"));
+    const panels = Array.from(wrap.querySelectorAll(".tab-panel"));
+    const labels = getNavLabels();
+
+    panels.forEach((panel, index) => {
+      let nav = panel.querySelector(".tab-end-nav");
+      if (!nav) {
+        nav = document.createElement("div");
+        nav.className = "tab-end-nav";
+        panel.appendChild(nav);
+      }
+      const prevBtn = buttons[index - 1];
+      const nextBtn = buttons[index + 1];
+      const prevTitle = prevBtn ? (prevBtn.textContent || "").trim() : "";
+      const nextTitle = nextBtn ? (nextBtn.textContent || "").trim() : "";
+
+      nav.innerHTML = `
+        <button type="button" class="tab-nav-btn tab-nav-prev"${prevBtn ? "" : " disabled"} data-go="${prevBtn ? prevBtn.dataset.tab : ""}" aria-label="${labels.prev}">
+          <span class="tab-nav-arrow" aria-hidden="true">←</span>
+          <span class="tab-nav-text">
+            <span class="tab-nav-dir">${labels.prev}</span>
+            <span class="tab-nav-name">${prevTitle}</span>
+          </span>
+        </button>
+        <button type="button" class="tab-nav-btn tab-nav-next"${nextBtn ? "" : " disabled"} data-go="${nextBtn ? nextBtn.dataset.tab : ""}" aria-label="${labels.next}">
+          <span class="tab-nav-text">
+            <span class="tab-nav-dir">${labels.next}</span>
+            <span class="tab-nav-name">${nextTitle}</span>
+          </span>
+          <span class="tab-nav-arrow" aria-hidden="true">→</span>
+        </button>
+      `;
+
+      nav.querySelectorAll(".tab-nav-btn:not([disabled])").forEach(b => {
+        b.addEventListener("click", () => {
+          const id = b.getAttribute("data-go");
+          if (id) activateTab(wrap, id);
         });
       });
     });
+  }
+
+  document.querySelectorAll(".content-tabs").forEach(wrap => {
+    const buttons = wrap.querySelectorAll(".tab-btn");
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => activateTab(wrap, btn.dataset.tab));
+    });
+    buildTabNav(wrap);
   });
+
+  window.rebuildAllTabNav = function () {
+    document.querySelectorAll(".content-tabs").forEach(buildTabNav);
+  };
 })();
